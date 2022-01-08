@@ -67,6 +67,18 @@ if(isset($_POST['key'])) :
 
     endif;
 
+    if($key == 'revert_request'): 
+        $id = $_POST['id'];
+
+        $sql = $database->conn->query("UPDATE account_information SET is_activate = false WHERE id = '$id'");
+        if($sql) {
+            exit("Update Successfully");
+        } else {
+            exit($sql);
+        }
+
+    endif;
+
     if($key == 'get_reqest_details'): 
         $id = $_POST['id'];
         $sql = $database->conn->query("SELECT * FROM account_information WHERE id = '$id'");
@@ -139,6 +151,8 @@ if(isset($_POST['key'])) :
                'date_issue' => $row['date_issue'],
                'time_issue' => $row['time_issue'],
                'medicine' => $row['medicine_take'],
+               'department' => $row['department'],
+               'course' => $row['course'],
                'id' => $id
            );
     
@@ -173,6 +187,37 @@ if(isset($_POST['key'])) :
         exit('Updated Successfully');
 
     endif;
+
+    if($key == 'save_patient'): 
+
+        $message = "New patient save";
+
+        $data = array(
+            "name" => $_POST['name'],
+            "address" => $_POST['address'],
+			"contact_number" => $_POST['contact_number'],
+			"gender" => $_POST['gender'],
+			"id_number" => $_POST['id_number'],
+			"issue" => $_POST['issue'],
+			"lastname" => $_POST['lastname'],
+			"age" => $_POST['age'],
+			"parent_contact" => $_POST['parent_contact'],
+            "guardian" => $_POST['guardian'],
+            "issue_status" => $_POST['issue_status'],
+            "date_issue" => $_POST['date_issue'],
+            "time_issue" => $_POST['time_issue'],
+            "note" => $_POST['note'],
+            "medicine_take" => $_POST['medecine'],
+            "department" => $_POST['department'],
+            "course" => $_POST['course'],
+        );
+        $obj->insertAny('patient_data', $data, $message);
+
+    
+    endif;
+
+
+
 
 endif;
 

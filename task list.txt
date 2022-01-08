@@ -1,0 +1,28 @@
+Done
+- UI both admin and nurse account
+- login
+- register
+- show list of patients (admin)
+- show list of patients (nurse)
+- edit patient data (admin)
+- delete patients (admin)
+- datatable patients (admin)
+- logout (admin)
+- edit my account (admin) 
+- edit account (nurse)
+- logout (nurse)
+- insert patient (nurse)
+- update patient (nurse)
+- delete patient (nurse)
+- all user list (admin)
+- delete user (admin)
+- print patient data (nurse)
+
+Pending
+- insert patient (admin) (optional)
+- update user (admin) (not necessary)
+- graph patient (nurse / admin)
+- card count data (nurse / admin)
+- forgot password (optional)
+
+

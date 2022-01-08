@@ -75,6 +75,9 @@ if(!isset($_SESSION['id']) || $_SESSION['access'] != 'admin') {
               <a href="index.php?page=request_access">Request Access</a>
 	          </li>
 	          <li>
+              <a href="index.php?page=all_users">All users</a>
+	          </li>
+	          <li>
               <a href="index.php?page=my_account">My Account</a>
 	          </li>
 	          <li>
@@ -104,20 +107,20 @@ if(!isset($_SESSION['id']) || $_SESSION['access'] != 'admin') {
         <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5 pt-5">
 
-        <?php 
+    <?php 
 
-			if (isset($_GET['page'])) {
-				$page = $_GET['page'];
-				$display = "pages/".$page.'.php';               
+        if (isset($_GET['page'])) {
+          $page = $_GET['page'];
+          $display = "pages/".$page.'.php';               
 
-				include($display);
-			} else {
-				$page = 'dashboard';
-				$display = "pages/".$page.'.php';
-				include($display);
-			}
+          include($display);
+        } else {
+          $page = 'dashboard';
+          $display = "pages/".$page.'.php';
+          include($display);
+        }
 
-		?>
+	?>
       </div>
 		</div>
 
@@ -144,6 +147,23 @@ approveRequest = (id) => {
       dataType: 'text',
       data: {
         key: "approve_request",
+        id: id
+      }, success: function(response) {
+		  alert(response);
+          $('#id_'+id).parent().remove();
+      }
+    });
+	}
+}
+
+revertUser = (id) => {
+	if(confirm("Are you sure you want to approve this?")) {
+	$.ajax({ 
+      url: './../../operations/fetchingAjaxRequest.php',
+      method: 'post',
+      dataType: 'text',
+      data: {
+        key: "revert_request",
         id: id
       }, success: function(response) {
 		  alert(response);
@@ -215,7 +235,7 @@ updateAccount = (id) => {
 	let re_pass = $('#re_pass').val();
 
 
-	alert(birthday)
+	// alert(birthday)
 
 	if(password === re_pass) { 
 
