@@ -60,6 +60,7 @@
 </div>
 
 <div class="container">
+    <h2 class="text-secondary">Total patient per month</h2>
     <canvas id="myChart"></canvas>
 </div>
 

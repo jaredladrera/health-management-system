@@ -21,7 +21,6 @@ $sql = $database->conn->query("SELECT * FROM patient_data");
       <th scope="col">Issue</th>
       <th scope="col">Status</th>
       <th scope="col">Operations</th>
-      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -38,19 +37,6 @@ $sql = $database->conn->query("SELECT * FROM patient_data");
         <button class="btn btn-primary" onclick="patientDetails(<?php echo $row['id']; ?>)"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
         <button class="btn btn-danger" onclick="deleteRequest(<?php echo $row['id']; ?>, 'delete_patient')"><i class="fa fa-trash" aria-hidden="true"></i></button>
  
-      </td>
-      <td>
-        <div class="form-group">
-        
-        <div class="form-group">
-            <select class="form-control" onchange="requestPrint(<?php echo $row['id']; ?>, this.value)" id="printRequest">
-            <option value="" disabled selected>PDF File</option>
-            <option value="only">Print only</option>
-            <option value="all"> Print all</option>
-            </select>
-        </div>
-
-        </div>
       </td>
       </tr>
     <?php endwhile; ?>
@@ -199,7 +185,6 @@ $sql = $database->conn->query("SELECT * FROM patient_data");
             <button  class="btn btn-secondary" id="savePatientsBtn" onclick="savePatients()" >Save</button>
             <button  class="btn btn-secondary" id="updatePatientsBtn" onclick="updatePatients()" >Update</button>
        
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
             
         </div>

@@ -19,18 +19,18 @@ Done
 - print patient data (nurse)
 - all users show details
 - account request show details
+- graph patient (nurse / admin)
 
 Pending
 - insert patient (admin) (optional)
 - update user (admin) (not necessary)
-- graph patient (nurse / admin)
 - card count data (nurse / admin)
 - forgot password (optional)
 
 
 Bug list
-- Getting time print (nurse page)
-- putting time in time input (nurse page)
+- Getting time print (nurse page) *done
+- putting time in time input (nurse page) *done
 
 Suggestion list
 -

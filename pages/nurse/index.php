@@ -40,7 +40,7 @@ $name = $getName->fetch_assoc();
 		  		<h1><a href="index.html" class="logo">Welcome! <span><?php echo $name["name"]; ?></span></a></h1>
 	        <ul class="list-unstyled components mb-5">
 	          <li class="active">
-	            <a href="#index.php?page=dashboard"><span class="fa fa-home mr-3"></span> Home</a>
+	            <a href="index.php?page=dashboard"><span class="fa fa-home mr-3"></span> Home</a>
 	          </li>
 	          <li>
 	              <a href="index.php?page=patients"><span class="fa fa-medkit mr-3"></span> Patients</a>
@@ -98,59 +98,71 @@ $name = $getName->fetch_assoc();
 $(document).ready(function() {
 	$('#patient_table').DataTable();
 
-  var ctx = document.getElementById('myChart').getContext('2d');
+var ctx = document.getElementById('myChart').getContext('2d');
+ 
+  $.ajax({ 
+      url: './../../operations/fetchDataForGraph.php',
+      method: 'post',
+      dataType: 'json',
+      data: {
+        key: 'monthly_data_graph',
+      }, success: function(response) {
+        var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'bar',
+          backgroundColor: 'rgba(0, 0, 0, 0.1)',
+
+          // The data for our dataset
+          data: {
+              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              datasets: [{
+                  label: 'Total ',
+                  backgroundColor: 'rgb(255, 99, 132)',
+                  borderColor: 'rgb(255, 99, 132)',
+                  data: [response.jan, response.feb, response.march, response.apr, response.may, response.june, response.july, response.aug, response.sept, response.oct, response.nov, response.dec],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(255, 159, 64, 0.2)',
+                      'rgba(255, 205, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(201, 203, 207, 0.2)',
+                      'rgba(255, 205, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(255, 159, 64)',
+                      'rgb(255, 205, 86)',
+                      'rgb(75, 192, 192)',
+                      'rgb(54, 162, 235)',
+                      'rgb(153, 102, 255)',
+                      'rgb(201, 203, 207)',
+                      'rgb(255, 205, 86)',
+                      'rgb(75, 192, 192)',
+                      'rgb(54, 162, 235)',
+                      'rgb(153, 102, 255)',
+                      'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 3
+              }]
+          },
+          options:{
+            legend: {
+            display: false
+          }  
+          }
+      });
+
+      } // end of success function
+  })
 
 
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'bar',
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
 
-    // The data for our dataset
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [{
-            label: 'Total ',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [20, 50, 100, 80, 45, 78, 90, 91, 23, 67, 34, 79],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(201, 203, 207, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(201, 203, 207, 0.2)'
-              ],
-              borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 205, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(54, 162, 235)',
-                'rgb(153, 102, 255)',
-                'rgb(201, 203, 207)',
-                'rgb(255, 205, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(54, 162, 235)',
-                'rgb(153, 102, 255)',
-                'rgb(201, 203, 207)'
-              ],
-              borderWidth: 3
-        }]
-    },
-    options:{
-      legend: {
-      display: false
-    }  
-    }
-});
 
 //  end of document ready
 })
@@ -174,8 +186,13 @@ deleteRequest = (id, key) => {
 }
 
 
-function getFullTime() {
-  let timeInput = document.getElementById('time_issue');
+function getFullTime(identifier) {
+  let timeInput;
+  if(identifier === 'save') {
+     timeInput = document.getElementById('time_issue');
+  } else {
+    timeInput = document.getElementById('etime_issue');
+  }
   var timeSplit = timeInput.value.split(':'),
     hours,
     minutes,
@@ -246,7 +263,7 @@ $.ajax({
 					  medecine: medecine,
 					  department: department,
 					  course: course,
-					  time_issue: getFullTime()
+					  time_issue: getFullTime('save')
 				  }, success: function(response){
 
 					  alert(response);
@@ -362,7 +379,8 @@ function updatePatients() {
   let date_issue = $('#edate_issue').val();
   let medicine_take = $('#emedecine').val();
 //   let timeDetails = document.getElementById('time_issue').value === '' ? document.getElementById('timeDetails').innerText : getFullTime();
-  let timeDetails = getFullTime()
+  let timeDetails = getFullTime('update')
+  // console.log(timeDetails);
 
   if(name == '' || lastname == '' || id_number == '' || issue == '' || contact_number == '' || address == '') {
 	  alert('Please complete all fields before you save!')

@@ -216,6 +216,27 @@ if(isset($_POST['key'])) :
     
     endif;
 
+    // if($key == 'graph_for_monthly_patient'): 
+    //      $data = array();   
+
+    //     $sql = $database->conn->query("select date_format(date_issue,'%M') AS month,COUNT(*) AS total
+    //     from patient_data
+    //     group by year(date_issue),month(date_issue)
+    //     order by year(date_issue),month(date_issue)");
+
+    //     while($row = $sql->fetch_array()) {
+    //         $data[] = $row;
+    //     }
+    //     $j = count($data);
+    //     for($i = 0; $i < $j; $i++) {
+    //         $data2 = array(
+    //             $data[$i]['month'] => $data[$i]['total'], 
+    //         );
+    //     }
+    
+    //     exit(json_encode($data2));
+    // endif;
+
 
 
 
