@@ -57,6 +57,9 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
                 }
             }
         
+        } else {
+            header("Location: ../index.php?error=Email or password not match!");
+            exit();  
         }
     }
 

@@ -23,6 +23,7 @@ $name = $getName->fetch_assoc();
 		
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="./../../css/nurse.css">
+		<link rel="stylesheet" href="./../../css/nurseCustom.css">
 		<link rel="stylesheet" href="./../../css/dataTablesBootstrap.css">
   </head>
   <body>
@@ -88,13 +89,70 @@ $name = $getName->fetch_assoc();
 		<script src="../../dependency/bootstrap/js/bootstrap.min.js"></script>
 		<script src="../../dependency/bootstrap/js/bootstrap.min.js"></script>
 		<script src="../../dependency/datatables/datatables.min.js"></script>
-        <script src="../../javascript/nurse.js"></script>
+    <script src="../../javascript/nurse.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   </body>
 </html>
 <script>
 
 $(document).ready(function() {
 	$('#patient_table').DataTable();
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+
+
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+
+    // The data for our dataset
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [{
+            label: 'Total ',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [20, 50, 100, 80, 45, 78, 90, 91, 23, 67, 34, 79],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+              ],
+              borderWidth: 3
+        }]
+    },
+    options:{
+      legend: {
+      display: false
+    }  
+    }
+});
+
+//  end of document ready
 })
 
 deleteRequest = (id, key) => {

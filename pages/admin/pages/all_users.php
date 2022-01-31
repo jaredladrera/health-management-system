@@ -24,7 +24,7 @@
           <td><?php echo $row['access']; ?></td>
           <td>
               <button class="btn btn-success" onclick="revertUser(<?php echo $row['id']; ?>)"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-              <!-- <button class="btn btn-info" onclick="requestDetails(<?php echo $row['id']; ?>)"><i class="fa fa-info" aria-hidden="true"></i></button> -->
+              <a href="index.php?page=user_details&id=<?php echo $row['id']; ?>" class="btn btn-info" ><i class="fa fa-info" aria-hidden="true"></i></a>
           <!-- <button type="button" class="btn btn-info" onclick="modalOpenForAccountUpdate(<?php echo $row['id']; ?>)">
             Change Status
           </button> -->
