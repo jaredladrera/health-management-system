@@ -1,3 +1,7 @@
+body {
+    background-color: #fff!important;
+}
+
 .card-box {
     position: relative;
     color: #fff;
@@ -64,3 +68,38 @@
 .bg-red {
     background-color: #d9534f !important;
 }
+
+#image_add {
+    width: 300px!important;
+    height: 500px!important;
+}
+/* body {
+    background-image: url("./../images/background_health_management.jpg") !important;
+    opacity: 50% !important;
+    background-color: #cccccc;
+} */
+
+
+ #content {
+    background-image: url("./../images/malvar_rhu.png");
+    background-size: 60%;
+    /* Full height */
+    /* height: 80%; */
+    /* opacity: 1; */
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+}
+
+.demo-content {
+    position: relative;
+}
+
+.container {
+    background-color: ghostwhite!important;
+    border-radius: 10px;
+    padding: 40px;
+    opacity: .98;
+} 

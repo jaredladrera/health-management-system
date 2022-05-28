@@ -20,17 +20,23 @@ Done
 - all users show details
 - account request show details
 - graph patient (nurse / admin)
+- delete also vaccine information deleting patients
+- print also vaccination data every patient
+- display also vaccination data admin page
+- adding vaccination data in admin page
 
 Pending
-- insert patient (admin) (optional)
-- update user (admin) (not necessary)
-- card count data (nurse / admin)
-- forgot password (optional)
+- card count data (nurse / admin) (current)
 
+Optionail list
+- forgot password (optional) (email feature not working not working)
+- update user (admin) (not necessary)
+- insert patient (admin) (optional)
 
 Bug list
 - Getting time print (nurse page) *done
 - putting time in time input (nurse page) *done
+- 
 
 Suggestion list
 -

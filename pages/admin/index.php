@@ -25,6 +25,7 @@ if(!isset($_SESSION['id']) || $_SESSION['access'] != 'admin') {
 		<link rel="stylesheet" href="./../../css/dataTablesBootstrap.css">
     
 		<!-- <link rel="stylesheet" href="../../dependency/datatables/datatables.min.css"> -->
+
   </head>
   <body>
 		
@@ -107,7 +108,7 @@ if(!isset($_SESSION['id']) || $_SESSION['access'] != 'admin') {
     	</nav>
 
         <!-- Page Content  -->
-      <div id="content" class="p-4 p-md-5 pt-5">
+  <div id="content" class="p-4 p-md-5 pt-5">
 
     <?php 
 
@@ -140,9 +141,10 @@ if(!isset($_SESSION['id']) || $_SESSION['access'] != 'admin') {
 $(document).ready(function() {
 	$('.requestTable').DataTable();
 	$('#patientTable').DataTable();
-
-  var ctx = document.getElementById('myChart').getContext('2d');
-
+    
+    var ctx = document.getElementById('myChart').getContext('2d');
+    console.log('hello from onready')
+ 
   $.ajax({ 
       url: './../../operations/fetchDataForGraph.php',
       method: 'post',
@@ -150,6 +152,7 @@ $(document).ready(function() {
       data: {
         key: 'monthly_data_graph',
       }, success: function(response) {
+          console.log('responsee',response)
         var chart = new Chart(ctx, {
           // The type of chart we want to create
           type: 'bar',
@@ -203,6 +206,8 @@ $(document).ready(function() {
 
       } // end of success function
   })
+
+
 
 //  end of document ready
 });
@@ -335,7 +340,7 @@ updateAccount = (id) => {
 }
 
 function patientDetails(id) {
-
+    let vaccinated = false;
     $.ajax({ 
          url: './../../operations/fetchingAjaxRequest.php',
          method: 'post',
@@ -344,7 +349,7 @@ function patientDetails(id) {
              key: 'getUpdatingData',
              id: id
          }, success: function(response){
-    
+
              $('#name').val(response.name);
              $('#lastname').val(response.lastname);
              $('#id_number').val(response.id_number);
@@ -359,6 +364,8 @@ function patientDetails(id) {
              $('#address').val(response.address);
              $('#patientID').val(response.id);
              $('#medecine').val(response.medicine);
+
+
              document.getElementById("date_issue").value = response.date_issue;
 
              document.getElementById('modalTitle').innerHTML = 'Update Patient';
@@ -479,6 +486,86 @@ updatePatients = () => {
 
 }
 
+
+vaccinationInformation = () => {
+  let id = $('#patientID').val();
+  // console.log(id);
+  window.location.href = `index.php?page=vaccinationInformation&patientId=${id}`;
+}
+
+$(document).on("change", "#file_add", function(event) {
+        event.preventDefault(); 
+
+        //get file details
+          var property = event.target.files[0];
+          // console.log(property);
+          var image_name = property.name;
+          var image_extension = image_name.split('.').pop().toLowerCase();
+          var image_size = property.size;
+
+        //filter extension
+        if(jQuery.inArray(image_extension, ['gif','png','jpg','jpeg'])==-1) {
+          
+           alert("Invalid Format!");
+        }
+
+        //filter size
+        else if(image_size>3000000) {
+          alert("File is too big");
+          
+        } 
+
+        else if(this.files && this.files[0]) {
+          document.getElementById("image_add").classList.remove("required-fields");
+          var obj = new FileReader();
+          obj.onload = function(data) { document.getElementById("image_add").src = data.target.result; }
+          obj.readAsDataURL(this.files[0]);
+        }
+
+});
+
+
+addVaccineInformation = (id) => {
+  let cardNumber = $('#card_number').val();
+  let vaccineBrand = $('#vaccine_brand').val();
+  let firstDose = $('#first_dose').val();
+  let secondDose = $('#second_dose').val();
+  let area = $('#vaccination_area').val();
+  let file = $('#file_add').val();
+
+  var file_property = document.getElementById("file_add").files[0] ? document.getElementById("file_add").files[0] : "";
+  // alert(id);
+
+
+  if (vaccineBrand != '' && area != '' && file_property != '') {
+
+        var form_data = new FormData();
+        form_data.append("file_add",file_property);
+ 
+      var other_data = "get_key=vaccine_information&card_number="+cardNumber+"&id="+id+"&vaccine_brand="+vaccineBrand+"&first_dose="+firstDose+"&area="+area+"&second_dose="+secondDose+"&image_name="+new Date().getTime();
+
+    $.ajax({
+      url: "./../../operations/fetchingAjaxRequest.php?"+other_data,
+      method: "post",
+      // dataType: "text",
+      data: form_data,
+      contentType:false,
+      cache:false,
+      processData:false,
+      success: (response) => {
+        alert(response);
+        console.log(response);
+        // $("#pending_"+id).parent().remove();
+      // load_image_data();
+      }
+    })
+
+  } else {
+    alert("Vaccine brand, picture and area is required!");
+  }
+
+
+}
 
 
 

@@ -8,7 +8,11 @@ $count = $stmt->num_rows;
 
 
 ?>
-
+<style>
+    .jumbotron {
+        opacity: .98!important;
+    }
+</style>
 <div class="jumbotron">
 
  <div class="row">

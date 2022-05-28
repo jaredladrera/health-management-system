@@ -3,8 +3,8 @@ $sql = $database->conn->query("SELECT * FROM patient_data");
 ?>
 
 <style>
-    input, textarea, select {
-        border: 1px solid #AAB7B8 !important;
+    input {
+        border: 1px solid black !important;
     }
     label span {
         color: red;
@@ -34,11 +34,12 @@ $sql = $database->conn->query("SELECT * FROM patient_data");
     <table class="table" id="patient_table">
         <thead class="thead-light">
             <tr>
-            <th scope="col">Fullname</th>
+            <th scope="col" class="text-center">Fullname</th>
             <th scope="col">Contact #</th>
-            <th scope="col">ID Number</th>
+            <th scope="col">ID  </th>
             <th scope="col">Status</th>
-            <th scope="col"></th>
+            <th scope="col" class="text-center" >Vaccinated</th>
+            <th scope="col">Operations</th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +49,9 @@ $sql = $database->conn->query("SELECT * FROM patient_data");
             <td><?php echo $row['contact_number']; ?></td>
             <td><?php echo $row['id_number']; ?></td>
             <td><?php echo $row['issue_status']; ?></td>
+            <td class="text-center">
+                <i class="fa <?php echo $row['vaccinated'] ? 'fa-check-circle text-primary': '' ?>" aria-hidden="true"></i>
+            </td>
             <td>
                 <button class="btn btn-sm btn-primary" onclick="patientDetails(<?php echo $row['id']; ?>)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                 <button class="btn btn-sm btn-danger" onclick="deleteRequest(<?php echo $row['id']; ?>, 'delete_patient')"><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -200,7 +204,8 @@ $sql = $database->conn->query("SELECT * FROM patient_data");
                 </div>
             </div>
         </div>
-
+        
+        
         </div>
         <div class="row text-right">
             <div class="col col-md-12">
@@ -359,6 +364,10 @@ $sql = $database->conn->query("SELECT * FROM patient_data");
                         <label for="note">Notes</label>
                         <textarea class="form-control" id="enotes" rows="4" style="height:100%;"></textarea>
                         <!-- <textarea class="form-control form-control-lg mb-3" rows="3" placeholder="Large textarea"></textarea> -->
+                    </div>
+                    <div class="form-group">
+                        <button onclick="vaccinationForm()" class="btn btn-success">Add Vaccination Information</button>
+                        <!-- <a  href="index.php?page=addVaccinationCard&patientId=4" class="btn btn-success">Add Vaccination Information</a> -->
                     </div>
                 </div>
                 </div>

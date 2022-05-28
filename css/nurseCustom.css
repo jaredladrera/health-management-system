@@ -64,3 +64,56 @@
 .bg-red {
     background-color: #d9534f !important;
 }
+
+.name_vaccine_info {
+    font-weight: bolder!important;
+}
+
+
+#content {
+    background-image: url("./../images/background_health_management.jpg");
+    background-size: 60%;
+    /* Full height */
+    /* height: 80%; */
+    /* opacity: 1; */
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+}
+
+.demo-content {
+    position: relative;
+}
+
+.container {
+    background-color: ghostwhite!important;
+    border-radius: 10px;
+    padding: 40px;
+    opacity: .98;
+} 
+
+#content {
+    background-image: url("./../images/malvar_rhu.png");
+    background-size: 60%;
+    /* Full height */
+    /* height: 80%; */
+    /* opacity: 1; */
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+}
+
+.demo-content {
+    position: relative;
+}
+
+.container {
+    background-color: ghostwhite!important;
+    border-radius: 10px;
+    padding: 40px;
+    opacity: .98;
+} 

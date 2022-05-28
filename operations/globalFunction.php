@@ -26,6 +26,45 @@ class DataOperation extends Connect{
 
 	}
 
+	public function insertAnyBool($tbl_name, $data){
+		$sql = '';  
+		$sql .= "INSERT INTO ".$tbl_name;
+		$sql .= "(".implode(",", array_keys($data)).") VALUES ";
+		$sql .= "('".implode("','", array_values($data))."')";
+
+		$stm = $this->connection->prepare($sql);
+        
+        if($stm->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+	}
+
+	function updateAnyBool($tbl_name, $data, $field_con_name, $id){
+			$sql = '';
+			$sql2 = '';
+			$sql1 ="UPDATE ".$tbl_name." SET ";
+
+			foreach ($data as $key => $value) {
+			$sql2 .= $key." = '".$value."' , ";
+			}
+			
+			$sql3=rtrim($sql2,", ");
+			$sql .=$sql1.$sql3." WHERE $field_con_name = ".$id;
+			// $query = mysqli_query($this->conn, $sql);
+			$query = $this->connection->prepare($sql);
+			if ($query->execute()) {
+				return true;
+			}else{
+				return false;
+			}
+
+		}
+
+
+
 	function updateAny($tbl_name, $data, $id){
 
 			$sql = '';

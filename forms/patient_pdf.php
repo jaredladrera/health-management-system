@@ -40,7 +40,8 @@ $database = new Database();
 
 
 $id = $_GET['id'];
-$query = $database->conn->query("SELECT * FROM patient_data WHERE id = $id");
+$query = $database->conn->query("SELECT * FROM patient_data LEFT JOIN vacination_data ON vacination_data.patient_id = patient_data.id WHERE patient_data.id = $id");
+// $query2 = $database->conn->query("SELECT * FROM patient_data LEFT JOIN vaccinatio_data WHERE patient_data.id = $id AND vaccinatio_data.patient_id = $id");
 $row = $query->fetch_array();
 
 // while($row = $query->fetch_array()) {
@@ -127,8 +128,29 @@ $this->Cell(58, 5, ': '.$row['time_issue'].' / '.$row['date_issue'], 0, 1);
 
 $this->Ln(3); //line break
 
-$this->Cell(55, 5, 'Notes', 0, 0);
-$this->Cell(58, 5, ': '.$row['note'], 0, 1);
+$this->Cell(55, 5, 'First dose', 0, 0);
+$this->Cell(58, 5, isset($row['first_dose_date']) ? ': '.$row['first_dose_date'] : ': ', 0, 1);
+
+
+$this->Ln(3); //line break
+
+$this->Cell(55, 5, 'Second dose', 0, 0);
+$this->Cell(58, 5, isset($row['second_dose_date']) ? ': '.$row['second_dose_date'] : ': ', 0, 1);
+
+$this->Ln(3); //line break
+
+$this->Cell(55, 5, 'Vaccine brand', 0, 0);
+$this->Cell(58, 5, isset($row['brand_vaccine']) ? ': '.$row['brand_vaccine'] : ': ', 0, 1);
+
+$this->Ln(3); //line break
+
+$this->Cell(55, 5, 'Vaccination area', 0, 0);
+$this->Cell(58, 5, isset($row['vaccination_area']) ? ': '.$row['vaccination_area'] : ': ', 0, 1);
+
+$this->Ln(3); //line break
+
+$this->Cell(55, 5, 'Vaccination card number', 0, 0);
+$this->Cell(58, 5, isset($row['vaccination_card_number']) ? ': '.$row['vaccination_card_number'] : ': ', 0, 1);
 
 
 
